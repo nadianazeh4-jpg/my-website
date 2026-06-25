@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ORA Perfumes</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fcfcfc;
+            margin: 0;
+            padding: 0;
+            color: #1a1a1a;
+            padding-bottom: 100px;
+        }
+
+        header {
+    background-image: url('images/ora3.jpeg'); /* غيري الاسم لاسم صورتك */
+    background-size: cover;          /* عشان الصورة تغطي المساحة كاملة */
+    background-position: center;     /* عشان الصورة تكون في المنتصف */
+    background-repeat: no-repeat;    /* عشان الصورة متبقاش متكررة */
+    /* ضفنا خلفية سودة شفافة فوق الصورة عشان الكلام الأبيض يظهر بوضوح */
+    background-color: rgba(0, 0, 0, 0.5); 
+    background-blend-mode: overlay;  /* دي بتدمج اللون مع الصورة */
+    
+    color: #fff;
+    text-align: center;
+    padding: 40px 20px;
+    border-bottom: 3px solid #b59410;
+}
+
+        header .logo {
+            font-size: 3.5rem;
+            font-weight: bold;
+            letter-spacing: 5px;
+            margin: 0;
+        }
+
+        header .subtitle {
+            font-size: 0.9rem;
+            color: #ccc;
+            margin: 10px 0;
+        }
+
+        .promo-badge {
+            background-color: #b59410;
+            color: #fff;
+            display: inline-block;
+            padding: 6px 15px;
+            font-size: 0.85rem;
+            border-radius: 20px;
+            margin-top: 10px;
+        }
+
+        .controls-container {
+            max-width: 1200px;
+            margin: 30px auto 10px auto;
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .search-box {
+            width: 100%;
+            max-width: 500px;
+            padding: 12px 20px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 25px;
+            outline: none;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .search-box:focus {
+            border-color: #b59410;
+            box-shadow: 0 0 8px rgba(181, 148, 16, 0.2);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .filter-btn {
+            background-color: #eee;
+            color: #333;
+            border: none;
+            padding: 10px 25px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background-color: #b59410;
+            color: #fff;
+        }
+
+        .collection-section {
+            padding: 20px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .collection-section h2 {
+            text-align: center;
+            font-size: 1.6rem;
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+            color: #111;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .products-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            justify-content: center;
+        }
+
+        .card {
+            background: #fff;
+            border: 1px solid #eee;
+            padding: 25px;
+            width: 300px;
+            border-radius: 4px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: 0.3s;
+        }
+
+        .card.hidden {
+            display: none !important;
+        }
+
+        .status-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: #2e7d32;
+            color: white;
+            font-size: 0.75rem;
+            padding: 3px 8px;
+            border-radius: 2px;
+            z-index: 10;
+        }
+
+        .product-img {
+            width: 100%;
+            height: 220px;
+            object-fit: contain;
+            margin-bottom: 15px;
+            background-color: #fafafa;
+            border-radius: 4px;
+        }
+
+        .card h3 {
+            font-size: 0.85rem;
+            color: #777;
+            margin: 5px 0;
+            letter-spacing: 1px;
+        }
+
+        .card h4 {
+            font-size: 1.3rem;
+            margin: 0 0 10px 0;
+        }
+
+        .tags {
+            font-size: 0.8rem;
+            color: #b59410;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .desc {
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            height: 70px;
+            overflow: hidden;
+        }
+
+        .price {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #111;
+        }
+
+        .add-to-cart-btn {
+            background-color: #111;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            transition: 0.3s;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: #b59410;
+        }
+
+        .cart-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: #111;
+            color: #fff;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.2);
+            border-top: 3px solid #b59410;
+            z-index: 1000;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+        }
+
+        .cart-bar.visible {
+            transform: translateY(0);
+        }
+
+        .cart-info {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .cart-count {
+            background-color: #b59410;
+            color: #fff;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .cart-total {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .checkout-btn {
+            background-color: #2e7d32;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+
+        .checkout-btn:hover {
+            background-color: #1b5e20;
+        }
+        #cartModal {
+    border-radius: 20px !important;
+    border: none !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2) !important;
+    padding: 30px !important;
+}
+
+#cartModal h3 {
+    color: #b59410;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+/* تنسيق زر الإغلاق */
+.close-btn {
+    width: 100%;
+    background: #111;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+    margin-top: 20px;
+    cursor: pointer;
+    font-weight: bold;
+}
+#cartModal {
+    position: fixed;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 0 !important; /* بدون زوايا دائرية على الموبايل */
+    padding: 20px !important;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+/* تحسين شكل جدول المنتجات داخل الموبايل */
+#cartItemsList div {
+    font-size: 0.85rem !important; /* تصغير الخط قليلاً ليناسب الشاشة */
+}
+
+/* تنسيق أزرار الكمية */
+#cartItemsList button {
+    padding: 5px 12px !important;
+    font-size: 1rem !important;
+}
+/* تنسيق بطاقة المنتج في السلة */
+.cart-item-card {
+    background: #f8f5f2;
+    border: 1px solid #e0dcd9;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-item-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.cart-item-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.total-section {
+    background: #f8f5f2;
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 20px;
+}
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">ORA</div>
+        <p class="subtitle">PREMIUM VISUAL FRAGRANCE CATALOG</p>
+        <div class="promo-badge">سعر موحد 450 EGP | توصيل سريع للمنزل</div>
+    </header>
+
+    <div class="controls-container">
+        <input type="text" id="searchInput" class="search-box" placeholder="ابحثي عن عطركِ المفضل أو الماركة..." onkeyup="filterProducts()">
+        
+        <div class="filter-buttons">
+            <button class="filter-btn active" onclick="filterGender('all', this)">الكل</button>
+            <button class="filter-btn" onclick="filterGender('femme', this)">تشكيلة النساء</button>
+            <button class="filter-btn" onclick="filterGender('homme', this)">تشكيلة الرجال</button>
+        </div>
+    </div>
+
+    <section class="collection-section" id="femmeSection">
+        <h2>POUR FEMME (التشكيلة النسائية)</h2>
+        <div class="products-grid">
+            
+            <div class="card" data-name="giorgio armani si parfum" data-brand="giorgio armani">
+                <span class="status-badge">متوفر الآن</span>
+                <img class="product-img" src="images/si.jpeg" alt="Sì Parfum">
+                <h3>GIORGIO ARMANI</h3>
+                <h4>Sì Parfum</h4>
+                <p class="tags">Chypre, Floral, Vanilla, Leather</p>
+                <p class="desc">إعادة تفسير جريئة ودافئة وحسية للغاية تتميز بنكتار الكشمش الأسود وقاعدة عميقة من الفانيليا والجلود.</p>
+                <div class="price">450 EGP</div>
+                <button class="add-to-cart-btn" onclick="addToCart('Sì Parfum', 'SI-ARM-001','si.jpeg')">إضافة إلى الطلب</button>
+            </div>
+
+            <div class="card" data-name="kayali fragrances lovefest cherry 48" data-brand="kayali fragrances">
+                <span class="status-badge">متوفر الآن</span>
+                <img class="product-img" src="images/cherry.jpeg" alt="Lovefest Cherry">
+                <h3>KAYALI FRAGRANCES</h3>
+                <h4>Lovefest Cherry | 48</h4>
+                <p class="tags">Woody, Amber, Cherry, Sweet</p>
+                <p class="desc">عرض ساحر وخشبي من الكرز النضير والبرالين الحلو مقابل خشب بالو سانتو المدخن والعميق.</p>
+                <div class="price">450 EGP</div>
+                <button class="add-to-cart-btn" onclick="addToCart('Lovefest Cherry', 'KAY-V28-001','Cherry.jpeg')">إضافة إلى الطلب</button>
+            </div>
+
+            <div class="card" data-name="xerjoff neorio" data-brand="xerjoff">
+                <span class="status-badge">متوفر الآن</span>
+                <img class="product-img" src="images/neorio.jpeg" alt="NeoRio">
+                <h3>XERJOFF</h3>
+                <h4>NeoRio</h4>
+                <p class="tags">Oriental, Sweet, Boozy, Warm Spicy</p>
+                <p class="desc">تكريم جريء وفني يفتتح برائحة الرم الغنية والتين المحلى، ليتطور إلى شراب القيقب الدافئ والزعفران.</p>
+                <div class="price">450 EGP</div>
+                <button class="add-to-cart-btn" onclick="addToCart('NeoRio', 'XER-NRO-002','neorio.jpeg')">إضافة إلى الطلب</button>
+            </div>
+
+            <div class="card" data-name="kayali fragrances vanilla 28" data-brand="kayali fragrances">
+                <span class="status-badge">متوفر الآن</span>
+                <img class="product-img" src="images/vanilla28.jpeg" alt="Vanilla 28">
+                <h3>KAYALI FRAGRANCES</h3>
+                <h4>Vanilla | 28</h4>
+                <p class="tags">Sweet, Vanilla, Amber, Powdery</p>
+                <p class="desc">المعيار المريح المطلق لعشاق الفانيليا، يحتفل بطبقات الفانيليا المتعددة المغلفة بجمال في السكر البني الدافئ.</p>
+                <div class="price">450 EGP</div>
+                <button class="add-to-cart-btn" onclick="addToCart('Vanilla 28', 'XER-VAN-003','vanilla28.jpeg')">إضافة إلى الطلب</button>
+            </div>
+
+            <div class="card" data-name="kayali fragrances lemon sugar 14" data-brand="kayali fragrances">
+                <span class="status-badge">متوفر الآن</span>
+                <img class="product-img" src="images/lemonsugar.jpeg" alt="Lemon Sugar 14">
+                <h3>KAYALI FRAGRANCES</h3>
+                <h4>Lemon Sugar | 14</h4>
+                <p class="tags">Citrus, Sweet, Vanilla, Fresh</p>
+                <p class="desc">رائحة حمضية حلوة ومبهجة مع قشور الليمون السكرية وأثر مريح ودافئ من الفانيليا.</p>
+                <div class="price">450 EGP</div>
+                <button class="add-to-cart-btn" onclick="addToCart('Lemon Sugar 14', 'KAY-LEM-14','lemonsugar.jpeg')">إضافة إلى الطلب</button>
+            </div>
+
+            <div class="card" data-name="yves saint laurent libre intense" data-brand="yves saint laurent">
+                <span class="status-badge">متوفر الآن</span>
+                <img class="product-img" src="images/libreintense.jpeg" alt="Libre Intense">
+                <h3>YVES SAINT LAURENT</h3>
+                <h4>Libre Intense</h4>
+                <p class="tags">Vanilla, Citrus, Lavender, Amber</p>
+                <p class="desc">عطر شرقي غني وعميق يبرز اللافندر المميز وزهر البرتقال مع لمسة دافئة من الأوركيد والفانيليا.</p>
+                <div class="price">450 EGP</div>
+                <button class="add-to-cart-btn" onclick="addToCart('Libre Intense', 'LIB-INT-001','libreintense.jpeg')">إضافة إلى الطلب</button>
+            </div>
+
+            <div class="card" data-name="yves saint laurent libre le parfum" data-brand="yves saint laurent">
+                <span class="status-badge">متوفر الآن</span>
+                <img class="product-img" src="images/libreleparfum.jpeg" alt="Libre Le Parfum">
+                <h3>YVES SAINT LAURENT</h3>
+                <h4>Libre Le Parfum</h4>
+                <p class="tags">Warm Spicy, Sweet, Vanilla, Honey</p>
+                <p class="desc">النسخة الأكثر فخامة ونارية من Libre، حيث تمزج الزنجبيل الدافئ واللمسات العسلية الذهبية مع اللافندر.</p>
+                <div class="price">450 EGP</div>
+                <button class="add-to-cart-btn" onclick="addToCart('Libre Le Parfum', 'JPG-LIB-LFP','libreleparfum.jpeg')">إضافة إلى الطلب</button>
+            </div>
+
+            <div class="card" data-name="jean paul gaultier la belle le parfum" data-brand="jean paul gaultier">
+                <span class="status-badge">متوفر الآن</span>
+                <img class="product-img" src="images/labelle.jpeg" alt="La Belle Le Parfum">
+                <h3>JEAN PAUL GAULTIER</h3>
+                <h4>La Belle Le Parfum</h4>
+                <p class="tags">Vanilla, Sweet, Fruity, Amber</p>
+                <p class="desc">عطر شرقي جذاب ومسبّب للإدمان يتميز بالكمثرى الخضراء الحلوة، والتونكا الغنية، والفانيليا الدافئة.</p>
+                <div class="price">450 EGP</div>
+                <button class="add-to-cart-btn" onclick="addToCart('La Belle Le Parfum', 'JPG-LBL-LE','labelle.jpeg')">إضافة إلى الطلب</button>
+            </div>
+
+            <div class="card" data-name="carolina herrera good girl" data-brand="carolina herrera">
+                <span class="status-badge">متوفر الآن</span>
+                <img class="product-img" src="images/goodgirl.jpeg" alt="Good Girl">
+                <h3>CAROLINA HERRERA</h3>
+                <h4>Good Girl</h4>
+                <p class="tags">Sweet, White Floral, Cacao, Vanilla</p>
+                <p class="desc">مزيج قوي يجمع بين العناصر الداكنة مثل القهوة المحمصة والكاكاو مع نفحات الزهور البيضاء المشرقة.</p>
+                <div class="price">450 EGP</div>
+                <button class="add-to-cart-btn" onclick="addToCart('Good Girl', 'CH-GRL-001','goodgirl.jpeg')">إضافة إلى الطلب</button>
+            </div>
+
+            <div class="card" data-name="burberry my burberry blush" data-brand="burberry">
+                <span class="status-badge">متوفر الآن</span>
+                <img class="product-img" src="images/burberryblush.jpeg" alt="My Burberry Blush">
+                <h3>BURBERRY</h3>
+                <h4>My Burberry Blush</h4>
+                <p class="tags">Fruity, Floral, Fresh, Rose</p>
+                <p class="desc">عطر زهري مشرق ومتألق يفتتح بالرمان الحاد والتفاح الأخضر المقرمش، ليندمج مع بتلات الورد الأنيقة.</p>
+                <div class="price">450 EGP</div>
+                <button class="add-to-cart-btn" onclick="addToCart('My Burberry Blush', 'BUR-BLSH-002','burberryblush.jpeg')">إضافة إلى الطلب</button>
+            </div>
+
+            <div class="card" data-name="xerjoff erbapura" data-brand="xerjoff">
+                <span class="status-badge">متوفر الآن</span>
+                <img class="product-img" src="images/erbapura.jpeg" alt="Erba Pura">
+                <h3>XERJOFF</h3>
+                <h4>Erba Pura</h4>
+                <p class="tags">Fruity, Citrus, Sweet, Amber</p>
+                <p class="desc">سلة فواكه استوائية ناضجة ومبهجة ممزوجة بالمسك الأبيض الدافئ والعنبر، تمنحك حضوراً ساحراً يدوم طويلاً.</p>
+                <div class="price">450 EGP</div>
+                <button class="add-to-cart-btn" onclick="addToCart('Erba Pura', 'XER-ERB-003','erbapura.jpeg')">إضافة إلى الطلب</button>
+            </div>
+
+            <div class="card" data-name="xerjoff torino21" data-brand="xerjoff">
+                <span class="status-badge">متوفر الآن</span>
+                <img class="product-img" src="images/torino.jpeg" alt="Torino21">
+                <h3>XERJOFF</h3>
+                <h4>Torino21</h4>
+                <p class="tags">Aromatic, Green, Citrus, Fresh Spicy, Mint</p>
+                <p class="desc">تحفة عطرية فائقة الانتعاش، تنبض برائحة أوراق النعناع المسحوقة الواقعية، مع الريحان والليمون والأعشاب النظيفة.</p>
+   
+                <div class="price">450 EGP</div>
+                <button class="add-to-cart-btn" onclick="addToCart('Torino21', 'XER-TOR21','torino.jpeg')">إضافة إلى الطلب</button>
+            </div>
+
+             <div class="card" data-name="maison francis kurkdjian baccarat rouge 540 extrait" data-brand="maison francis kurkdjian">
+                   <span class="status-badge">متوفر الآن</span>
+                  <img class="product-img" src="images/baccarat.jpeg" alt="Baccarat Rouge 540 Extrait">
+                  <h3>MAISON FRANCIS KURKDJIAN</h3>
+                  <h4>Baccarat Rouge 540 Extrait</h4>
+                  <p class="tags">Amber, Almond, Woody, Warm Spicy, Saffron</p>
+                  <p class="desc">تحفة فنية أسطورية تعزز أثر الزعفران المحروق مع لمسات غنية من عجينة اللوز المر والعنبر المعدني.</p>
+                  <div class="price">450 EGP</div>
+                 <button class="add-to-cart-btn" onclick="addToCart('Baccarat Rouge 540 Extrait', 'MFK-BR540-EXT','baccarat.jpeg')">إضافة إلى الطلب</button>
+              </div>
+
+            <div class="card" data-name="prada paradoxe" data-brand="prada">
+    <span class="status-badge">متوفر الآن</span>
+    <img class="product-img" src="images/prada.jpeg" alt="Prada Paradoxe">
+    <h3>PRADA</h3>
+    <h4>Paradoxe</h4>
+    <p class="tags">White Floral, Citrus, Sweet, Vanilla, Amber</p>
+    <p class="desc">تحفة عطرية خالدة تحتفي بالأنوثة العصرية بمزيج من زهر البرتقال المنعش، توهج العنبر الدافئ، وفانيليا مريحة.</p>
+    <div class="price">450 EGP</div>
+    <button class="add-to-cart-btn" onclick="addToCart('Prada Paradoxe', 'PRADA-PARA','prada.jpeg')">إضافة إلى الطلب</button>
+</div>
+            <div class="card" data-name="jean paul gaultier scandal" data-brand="jean paul gaultier">
+                <span class="status-badge">متوفر الآن</span>
+                <img class="product-img" src="images/scandal.jpeg" alt="Scandal">
+                <h3>JEAN PAUL GAULTIER</h3>
+                <h4>Scandal</h4>
+                <p class="tags">Honey, Sweet, Citrus, White Floral</p>
+                <p class="desc">عطر يعج بالجاذبية، يمزج العسل السائل الدافئ مع غنى زهور الغاردينيا وقاعدة مثيرة من الباتشولي.</p>
+                <div class="price">450 EGP</div>
+                <button class="add-to-cart-btn" onclick="addToCart('Scandal', 'JPG-SCA-001','scandal.jpeg')">إضافة إلى الطلب</button>
+            </div>
+
+            <div class="card" data-name="burberry her elixir" data-brand="burberry">
+    <span class="status-badge">متوفر الآن</span>
+    <img class="product-img" src="images/her.jpeg" alt="Her Elixir">
+    <h3>BURBERRY</h3>
+    <h4>Her Elixir</h4>
+    <p class="tags">Fruity, Sweet, Vanilla, Powdery, Milky</p>
+    <p class="desc">انفجار غورماند كريمي مكثف من التوت الأحمر اللذيذ، مُعزز بجمال الفانيليا والعنبر وخشب الصندل الناعم.</p>
+    <div class="price">450 EGP</div>
+    <button class="add-to-cart-btn" onclick="addToCart('Her Elixir', 'BUR-ELX','her.jpeg')">إضافة إلى الطلب</button>
+</div>
+
+            <div class="card" data-name="burberry her" data-brand="burberry">
+    <span class="status-badge">متوفر الآن</span>
+    <img class="product-img" src="images/burberry.jpeg" alt="Burberry Her">
+    <h3>BURBERRY</h3>
+    <h4>Burberry Her</h4>
+    <p class="tags">Fruity, Sweet, Woody, Musky</p>
+    <p class="desc">توقيع فاكهي زهري حيوي بريطاني، يضم مزيجاً من التوت مع قاعدة خشبية مسكية متطورة.</p>
+    <div class="price">450 EGP</div>
+    <button class="add-to-cart-btn" onclick="addToCart('Burberry Her', 'BUR-HER','burberry.jpeg')">إضافة إلى الطلب</button>
+</div>
+            <div class="card" data-name="giorgio armani si passione" data-brand="giorgio armani">
+    <span class="status-badge">متوفر الآن</span>
+    <img class="product-img" src="images/si2.jpeg" alt="Sì Passione">
+    <h3>GIORGIO ARMANI</h3>
+    <h4>Sì Passione</h4>
+    <p class="tags">Fruity, Rose, Sweet, Floral, Soft Spicy</p>
+    <p class="desc">عطر زهري فاكهي مشرق ومكثف يمنحك الثقة مع مزيج الكمثرى والأناناس والورد وخشب الأرز.</p>
+    <div class="price">450 EGP</div>
+    <button class="add-to-cart-btn" onclick="addToCart('Sì Passione', 'SI-PAS','si2.jpeg')">إضافة إلى الطلب</button>
+</div>
+
+            
+
+            <!-- Scandal Le Parfum -->
+<!-- Scandal Le Parfum -->
+<div class="card" data-name="jean paul gaultier scandal le parfum" data-brand="jean paul gaultier">
+    <span class="status-badge">متوفر الآن</span>
+    <img class="product-img" src="images/scandalle.jpeg" alt="Scandal Le Parfum">
+    <h3>JEAN PAUL GAULTIER</h3>
+    <h4>Scandal Le Parfum</h4>
+    <p class="tags">Vanilla, Caramel, Sweet, White Floral</p>
+    <p class="desc">قوة عطرية زهرية بالعنبر تبرز التباين المذهل بين الياسمين الأبيض الفاخر، الكراميل المملح، والفانيليا السوداء.</p>
+    <div class="price">450 EGP</div>
+    <button class="add-to-cart-btn" onclick="addToCart('Scandal Le Parfum', 'JPG-SCAN-LP','scandalle.jpeg')">إضافة إلى الطلب</button>
+</div>
+
+<!-- Good Girl Blush -->
+<div class="card" data-name="carolina herrera good girl blush" data-brand="carolina herrera">
+    <span class="status-badge">متوفر الآن</span>
+    <img class="product-img" src="images/goodblush.jpeg" alt="Good Girl Blush">
+    <h3>CAROLINA HERRERA</h3>
+    <h4>Good Girl Blush</h4>
+    <p class="tags">Vanilla, Floral, Powdery, Citrus</p>
+    <p class="desc">تعبير زهري رومانسي ومنعش يجمع بين بتلات الفاوانيا والإيلنغ الحسي مع لمسة مزدوجة من الفانيليا.</p>
+    <div class="price">450 EGP</div>
+    <button class="add-to-cart-btn" onclick="addToCart('Good Girl Blush', 'CH-BLUSH','goodblush.jpeg')">إضافة إلى الطلب</button>
+</div>
+
+        </div>
+    </section>
+
+    <section class="collection-section" id="hommeSection">
+        <h2>POUR HOMME (التشكيلة الرجالية)</h2>
+        <div class="products-grid">
+            
+            <div class="card" data-name="prada paradigme" data-brand="prada">
+    <span class="status-badge">متوفر الآن</span>
+    <img class="product-img" src="images/brada.jpeg" alt="Paradigme">
+    <h3>PRADA</h3>
+    <h4>Paradigme</h4>
+    <p class="tags">Amber, Powdery, Fresh Spicy, Citrus, Woody</p>
+    <p class="desc">عطر ذكوري راقٍ يستخدم زهرة السوسن البودرية الأنيقة المغلفة براتنجات العنبر الغنية، الباتشولي النظيف، والجلد المريح.</p>
+    <div class="price">450 EGP</div>
+    <button class="add-to-cart-btn" onclick="addToCart('Paradigme', 'PRD-PAR','brada.jpeg')">إضافة إلى الطلب</button>
+</div>
+
+<div class="card" data-name="xerjoff erba pura" data-brand="xerjoff">
+    <span class="status-badge">متوفر الآن</span>
+    <img class="product-img" src="images/erbapura.jpeg" alt="Erba Pura">
+    <h3>XERJOFF</h3>
+    <h4>Erba Pura</h4>
+    <p class="tags">Fruity, Sweet, Citrus, Amber, Musky</p>
+    <p class="desc">سلة فواكه متوسطية غنية ومنعشة مع حمضيات حلوة، تتناغم ببراعة فوق طبقة دافئة من المسك المخملي.</p>
+    <div class="price">450 EGP</div>
+    <button class="add-to-cart-btn" onclick="addToCart('Erba Pura', 'XER-EPU','erbapura.jpeg')">إضافة إلى الطلب</button>
+</div>
+
+<div class="card" data-name="xerjoff torino21" data-brand="xerjoff">
+    <span class="status-badge">متوفر الآن</span>
+    <img class="product-img" src="images/torino.jpeg" alt="Torino21">
+    <h3>XERJOFF</h3>
+    <h4>Torino21</h4>
+    <p class="tags">Aromatic, Green, Citrus, Fresh Spicy, Mint</p>
+    <p class="desc">تحفة عطرية فائقة الانتعاش، تنبض برائحة أوراق النعناع المسحوقة الواقعية، مع الريحان والليمون والأعشاب النظيفة.</p>
+    <div class="price">450 EGP</div>
+    <button class="add-to-cart-btn" onclick="addToCart('Torino21', 'XER-T21M','torino.jpeg')">إضافة إلى الطلب</button>
+</div>
+
+<div class="card" data-name="valentino uomo intense" data-brand="valentino">
+    <span class="status-badge">متوفر الآن</span>
+    <img class="product-img" src="images/uomo.jpeg" alt="Uomo Intense">
+    <h3>VALENTINO</h3>
+    <h4>Uomo Intense</h4>
+    <p class="tags">Powdery, Iris, Leather, Vanilla, Violet</p>
+    <p class="desc">معزز كاريزما استثنائي عالي المكانة، يجمع بين السوسن الإيطالي والجلد الداكن القوي مع الفانيليا السوداء.</p>
+    <div class="price">450 EGP</div>
+    <button class="add-to-cart-btn" onclick="addToCart('Uomo Intense', 'VAL-UMI','uomo.jpeg')">إضافة إلى الطلب</button>
+</div>
+
+<div class="card" data-name="rabanne invictus" data-brand="rabanne">
+    <span class="status-badge">متوفر الآن</span>
+    <img class="product-img" src="images/inva.jpeg" alt="Invictus">
+    <h3>RABANNE</h3>
+    <h4>Invictus</h4>
+    <p class="tags">Citrus, Marine, Fresh Spicy, Aromatic</p>
+    <p class="desc">عطر قوي مائي خشبي منعش، يجمع بين حيوية الجريب فروت وأوراق الغار المغناطيسية واتفاق العنبر الرمادي.</p>
+    <div class="price">450 EGP</div>
+    <button class="add-to-cart-btn" onclick="addToCart('Invictus', 'RAB-INV','inva.jpeg')">إضافة إلى الطلب</button>
+</div>
+
+<div class="card" data-name="lattafa khamrah qahwa" data-brand="lattafa perfumes">
+    <span class="status-badge">متوفر الآن</span>
+    <img class="product-img" src="images/kh.jpeg" alt="Khamrah Qahwa">
+    <h3>LATTAFA PERFUMES</h3>
+    <h4>Khamrah Qahwa</h4>
+    <p class="tags">Warm Spicy, Coffee, Vanilla, Amber, Cinnamon</p>
+    <p class="desc">لمسة فاخرة من القهوة العربية المحمصة داكناً مضافة إلى قلب مكثف من القرفة والتوابل والبرالين.</p>
+    <div class="price">450 EGP</div>
+    <button class="add-to-cart-btn" onclick="addToCart('Khamrah Qahwa', 'LAT-QAH','kh.jpeg')">إضافة إلى الطلب</button>
+</div>
+
+<div class="card" data-name="lattafa khamrah" data-brand="lattafa perfumes">
+    <span class="status-badge">متوفر الآن</span>
+    <img class="product-img" src="images/kh2.jpeg" alt="Khamrah">
+    <h3>LATTAFA PERFUMES</h3>
+    <h4>Khamrah</h4>
+    <p class="tags">Sweet, Warm Spicy, Amber, Vanilla</p>
+    <p class="desc">عطر غورماند فاخر ومتميز يفتتح برائحة التمور الحلوة، البرالين الغني، جوزة الطيب، وفانيليا مدغشقر النظيفة.</p>
+    <div class="price">450 EGP</div>
+    <button class="add-to-cart-btn" onclick="addToCart('Khamrah', 'LAT-KHM','kh2.jpeg')">إضافة إلى الطلب</button>
+</div>
+
+<div class="card" data-name="lattafa khamrah dukhan" data-brand="lattafa perfumes">
+    <span class="status-badge">متوفر الآن</span>
+    <img class="product-img" src="images/kh3.jpeg" alt="Khamrah Dukhan">
+    <h3>LATTAFA PERFUMES</h3>
+    <h4>Khamrah Dukhan</h4>
+    <p class="tags">Smoky, Woody, Sweet, Warm Spicy, Amber</p>
+    <p class="desc">نسخة داكنة وغامضة جداً تغلف حلاوة التمور الأصلية ببخور مدخن غني وخشب العود.</p>
+    <div class="price">450 EGP</div>
+    <button class="add-to-cart-btn" onclick="addToCart('Khamrah Dukhan', 'LAT-DKH','kh3.jpeg')">إضافة إلى الطلب</button>
+</div>
+
+<div class="card" data-name="tom ford tobacco vanille" data-brand="tom ford">
+    <span class="status-badge">متوفر الآن</span>
+    <img class="product-img" src="images/top.jpeg" alt="Tobacco Vanille">
+    <h3>TOM FORD</h3>
+    <h4>Tobacco Vanille</h4>
+    <p class="tags">Sweet, Tobacco, Vanilla, Warm Spicy, Woody</p>
+    <p class="desc">كلاسيكية أيقونية تجمع بين روائح أوراق التبغ الغنية والفانيليا الكريمية الحلوة مع لمسات الفواكه المجففة.</p>
+    <div class="price">450 EGP</div>
+    <button class="add-to-cart-btn" onclick="addToCart('Tobacco Vanille', 'TF-TBV','top.jpeg')">إضافة إلى الطلب</button>
+</div>
+
+<div class="card" data-name="rabanne million gold" data-brand="rabanne">
+    <span class="status-badge">متوفر الآن</span>
+    <img class="product-img" src="images/mill.jpeg" alt="Million Gold">
+    <h3>RABANNE</h3>
+    <h4>Million Gold</h4>
+    <p class="tags">Citrus, Warm Spicy, Woody, Amber</p>
+    <p class="desc">عطر عصري مفعم بالحيوية، يوازن بين قشور المندرين المنعشة والقرفة الحادة مع خشب الأرز والعنبر العميق.</p>
+    <div class="price">450 EGP</div>
+    <button class="add-to-cart-btn" onclick="addToCart('Million Gold', 'RAB-MGD','mill.jpeg')">إضافة إلى الطلب</button>
+</div>
+<!-- 11. YSL - MYSLF -->
+<div class="card" data-name="yves saint laurent myslf" data-brand="yves saint laurent">
+    <span class="status-badge">متوفر الآن</span>
+    <img class="product-img" src="images/myslf.jpeg" alt="MYSLF">
+    <h3>YVES SAINT LAURENT</h3>
+    <h4>MYSLF</h4>
+    <p class="tags">White Floral, Citrus, Woody, Fresh, Amber</p>
+    <p class="desc">توقيع ذكوري عصري راقٍ يوازن بين بتلات زهر البرتقال المضيئة مع البرغموت الحاد وأثر خشبي أمبروكساني غني.</p>
+    <div class="price">450 EGP</div>
+    <button class="add-to-cart-btn" onclick="addToCart('MYSLF', 'YSL-MSF','myslf.jpeg')">إضافة إلى الطلب</button>
+</div>
+
+<!-- 12. JPG - Ultra Male -->
+<div class="card" data-name="jean paul gaultier ultra male" data-brand="jean paul gaultier">
+    <span class="status-badge">متوفر الآن</span>
+    <img class="product-img" src="images/ultra.jpeg" alt="Ultra Male">
+    <h3>JEAN PAUL GAULTIER</h3>
+    <h4>Ultra Male</h4>
+    <p class="tags">Sweet, Vanilla, Fruity, Warm Spicy</p>
+    <p class="desc">عطر احتفالي قوي يجمع بين الفانيليا السوداء والكمثرى العصيرية مع النعناع المنعش واللافندر والقرفة الحارة.</p>
+    <div class="price">450 EGP</div>
+    <button class="add-to-cart-btn" onclick="addToCart('Ultra Male', 'JPG-ULT','ultra.jpeg')">إضافة إلى الطلب</button>
+</div>
+
+<!-- 13. JPG - Le Male Le Parfum -->
+<div class="card" data-name="jean paul gaultier le male le parfum" data-brand="jean paul gaultier">
+    <span class="status-badge">متوفر الآن</span>
+    <img class="product-img" src="images/lemale.jpeg" alt="Le Male Le Parfum">
+    <h3>JEAN PAUL GAULTIER</h3>
+    <h4>Le Male Le Parfum</h4>
+    <p class="tags">Vanilla, Warm Spicy, Aromatic, Powdery, Lavender</p>
+    <p class="desc">عطر أنيق وعميق، يتميز بانفجار مكثف من الهيل الحار، اللافندر المريح، السوسن البودري، والفانيليا السوداء الثقيلة.</p>
+    <div class="price">450 EGP</div>
+    <button class="add-to-cart-btn" onclick="addToCart('Le Male Le Parfum', 'JPG-MLP','lemale.jpeg')">إضافة إلى الطلب</button>
+</div>
+
+<!-- 14. JPG - Le Beau Le Parfum -->
+<div class="card" data-name="jean paul gaultier le beau le parfum" data-brand="jean paul gaultier">
+    <span class="status-badge">متوفر الآن</span>
+    <img class="product-img" src="images/le.jpeg" alt="Le Beau Le Parfum">
+    <h3>JEAN PAUL GAULTIER</h3>
+    <h4>Le Beau Le Parfum</h4>
+    <p class="tags">Coconut, Sweet, Vanilla, Tropical</p>
+    <p class="desc">قوة استوائية جذابة تمزج بين النوتات الخشبية الحلوة، الأناناس المنعش، كريمة جوز الهند، وفول التونكا الغني.</p>
+    <div class="price">450 EGP</div>
+    <button class="add-to-cart-btn" onclick="addToCart('Le Beau Le Parfum', 'JPG-LBP','le.jpeg')">إضافة إلى الطلب</button>
+</div>
+
+<!-- 15. Rabanne - Invictus Legend -->
+<div class="card" data-name="rabanne invictus legend" data-brand="rabanne">
+    <span class="status-badge">متوفر الآن</span>
+    <img class="product-img" src="images/inv.jpeg" alt="Invictus Legend">
+    <h3>RABANNE</h3>
+    <h4>Invictus Legend</h4>
+    <p class="tags">Aromatic, Marine, Salty, Amber, Citrus</p>
+    <p class="desc">تصادم مثالي بين حرارة الصحراء الحارقة وقوة البحر المالح، يتميز بالعنبر الأحمر الغني والتوابل العطرية الجريئة.</p>
+    <div class="price">450 EGP</div>
+    <button class="add-to-cart-btn" onclick="addToCart('Invictus Legend', 'RAB-IVL','inv.jpeg')">إضافة إلى الطلب</button>
+</div>
+
+<!-- 16. Dior - Sauvage -->
+<div class="card" data-name="dior sauvage" data-brand="dior">
+    <span class="status-badge">متوفر الآن</span>
+    <img class="product-img" src="images/sau.jpeg" alt="Sauvage">
+    <h3>DIOR</h3>
+    <h4>Sauvage</h4>
+    <p class="tags">Fresh Spicy, Citrus, Amber, Aromatic, Woody</p>
+    <p class="desc">تركيبة خام ونبيلة تتميز بانفجار متفجر من برغموت كالابريا العصيري، ترتكز على الأمبروكسان القوي.</p>
+    <div class="price">450 EGP</div>
+    <button class="add-to-cart-btn" onclick="addToCart('Sauvage', 'DIO-SVG','sau.jpeg')">إضافة إلى الطلب</button>
+</div>
+
+<!-- 17. Versace - Eros -->
+<div class="card" data-name="versace eros" data-brand="versace">
+    <span class="status-badge">متوفر الآن</span>
+    <img class="product-img" src="images/eros.jpeg" alt="Eros">
+    <h3>VERSACE</h3>
+    <h4>Eros</h4>
+    <p class="tags">Vanilla, Aromatic, Green, Fresh Spicy</p>
+    <p class="desc">عطر شغوف يوازن بشكل مذهل بين أوراق النعناع المنعشة، التفاح المقرمش، والفانيليا الغنية.</p>
+    <div class="price">450 EGP</div>
+    <button class="add-to-cart-btn" onclick="addToCart('Eros', 'VER-ERS','eros.jpeg')">إضافة إلى الطلب</button>
+</div>
+
+<!-- 18. Chanel - Bleu de Chanel -->
+<div class="card" data-name="chanel bleu de chanel" data-brand="chanel">
+    <span class="status-badge">متوفر الآن</span>
+    <img class="product-img" src="images/bleu.jpeg" alt="Bleu de Chanel">
+    <h3>CHANEL</h3>
+    <h4>Bleu de Chanel</h4>
+    <p class="tags">Citrus, Woody, Amber, Warm Spicy, Incense</p>
+    <p class="desc">ملف عطري أيقوني ونظيف يجمع بين روائح الحمضيات العطرية المنعشة مع لمسات البخور المتطورة والعنبر وخشب الأرز.</p>
+    <div class="price">450 EGP</div>
+    <button class="add-to-cart-btn" onclick="addToCart('Bleu de Chanel', 'CHN-BLEU','bleu.jpeg')">إضافة إلى الطلب</button>
+</div>
+
+<!-- 19. Giorgio Armani - Stronger With You Absolutely -->
+<div class="card" data-name="giorgio armani stronger with you absolutely" data-brand="giorgio armani">
+    <span class="status-badge">متوفر الآن</span>
+    <img class="product-img" src="images/swy.jpeg" alt="Stronger With You Absolutely">
+    <h3>GIORGIO ARMANI</h3>
+    <h4>SWY Absolutely</h4>
+    <p class="tags">Sweet, Amber, Vanilla, Woody, Boozy, Warm Spicy</p>
+    <p class="desc">تركيبة دافئة ومكثفة تتميز باتفاق الروم المسكر الممزوج بسلاسة مع الكستناء الحلو وفانيليا مدغشقر الداكنة.</p>
+    <div class="price">450 EGP</div>
+    <button class="add-to-cart-btn" onclick="addToCart('Stronger With You Absolutely', 'SWY-ABS')">إضافة إلى الطلب</button>
+</div>
+</div>
+    </section>
+
+   <div id="cartBar" class="cart-bar">
+    <div class="cart-info">
+        <span class="cart-count" id="cartCount">0 عطور</span>
+        <span class="cart-total" id="cartTotal">إجمالي: 0 EGP</span>
+    </div>
+    <div style="display: flex; gap: 10px;">
+        <button class="filter-btn" style="background:#fff; padding: 5px 15px;" onclick="openCartModal()">عرض السلة</button>
+        <button class="checkout-btn" onclick="document.getElementById('orderModal').style.display='block'">إتمام الطلب</button>
+    </div>
+</div>
+
+
+    <script>
+        
+        let cart = [];
+        const pricePerItem = 450;
+
+        // التعديل هنا: أضفنا img كمدخل ثالث
+function addToCart(name, code, img) {
+    let existingItem = cart.find(item => item.code === code);
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        // خزننا اسم الصورة هنا
+        cart.push({ name: name, code: code, img: img, quantity: 1 });
+    }
+    updateCartUI();
+}
+
+        function updateCartUI() {
+            const cartBar = document.getElementById('cartBar');
+            const cartCount = document.getElementById('cartCount');
+            const cartTotal = document.getElementById('cartTotal');
+            
+            let totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            let totalPrice = totalItems * pricePerItem;
+
+            if (totalItems > 0) {
+                cartBar.classList.add('visible');
+                cartCount.innerText = totalItems + " عطور";
+                cartTotal.innerText = "إجمالي: " + totalPrice + " EGP";
+            } else {
+                cartBar.classList.remove('visible');
+            }
+        }
+        // فتح نافذة السلة وعرض المحتويات
+function openCartModal() {
+    let list = document.getElementById('cartItemsList');
+    let totalItemsPrice = cart.reduce((sum, item) => sum + (item.quantity * 450), 0);
+    
+    list.innerHTML = ""; // تنظيف القائمة
+
+    cart.forEach((item, index) => {
+        list.innerHTML += `
+            <div class="cart-item-card">
+                <div class="cart-item-row">
+<img src="images/${item.img}" class="cart-item-img" onerror="this.src='images/placeholder.jpeg'">                    <div style="flex:1;">
+                        <div style="font-weight:bold;">${item.name}</div>
+                        <div style="font-size: 0.8rem; color: #666;">كود: ${item.code}</div>
+                    </div>
+                    <button onclick="removeItem(${index})" style="background:none; border:none; cursor:pointer; font-size:1.2rem;">&times;</button>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px;">
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <button onclick="changeQty(${index}, -1)" style="padding:5px 10px;">-</button>
+                        <span>${item.quantity}</span>
+                        <button onclick="changeQty(${index}, 1)" style="padding:5px 10px;">+</button>
+                    </div>
+                    <div style="font-weight:bold;">${item.quantity * 450} EGP</div>
+                </div>
+            </div>
+        `;
+    });
+
+    // إضافة ملخص الطلب
+    list.innerHTML += `
+        <div class="total-section">
+            <div style="display:flex; justify-content:space-between;"><span>الإجمالي:</span> <span>${totalItemsPrice} EGP</span></div>
+            <hr>
+            <button class="checkout-btn" style="width:100%; margin-top:10px;" onclick="document.getElementById('orderModal').style.display='block'">إتمام الطلب</button>
+        </div>
+    `;
+    
+    document.getElementById('cartModal').style.display = 'block';
+}
+
+// تعديل الكمية
+function changeQty(index, delta) {
+    cart[index].quantity += delta;
+    if (cart[index].quantity <= 0) {
+        cart.splice(index, 1);
+    }
+    updateCartUI();
+    openCartModal(); // تحديث النافذة بعد التغيير
+}
+
+// حذف المنتج
+function removeItem(index) {
+    cart.splice(index, 1);
+    updateCartUI();
+    openCartModal();
+}
+
+// تحديث شكل السلة السفلي
+function updateCartUI() {
+    const cartBar = document.getElementById('cartBar');
+    const cartCount = document.getElementById('cartCount');
+    const cartTotal = document.getElementById('cartTotal');
+    
+    let totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    let totalPrice = totalItems * 450;
+
+    if (totalItems > 0) {
+        cartBar.classList.add('visible');
+        cartCount.innerText = totalItems + " عطور";
+        cartTotal.innerText = "إجمالي: " + totalPrice + " EGP";
+    } else {
+        cartBar.classList.remove('visible');
+    }
+}
+
+        function checkoutWhatsApp() {
+            if (cart.length === 0) return;
+            
+            // الأرقام الخاصة بكِ (يمكنكِ تعديل الرقم الثاني بوضع رقمكِ الحقيقي بدلاً من الاكسات)
+            let phone1 = "201030488495"; 
+            let phone2 = "201034059582"; // ضعي رقمكِ الثاني هنا
+            
+            // سؤال الزبون لاختيار الرقم المفضل له
+            let choice = prompt("اختر رقم الواتساب لإرسال الطلب:\n1 - الرقم الأول\n2 - الرقم الثاني");
+            
+            let phoneNumber;
+            if (choice === "2") {
+                phoneNumber = phone2;
+            } else {
+                phoneNumber = phone1;
+            }
+            
+            let message = "مرحباً ORA Perfumes، أريد طلب العطور التالية:\n\n";
+            cart.forEach((item, index) => {
+                message += (index + 1) + ". عطر: " + item.name + " | الكود: " + item.code + " | الكمية: " + item.quantity + "\n";
+            });
+            let totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            message += "\nعدد العطور الكلي: " + totalItems;
+            message += "\nإجمالي الحساب: " + (totalItems * pricePerItem) + " EGP";
+            
+            let encodedMessage = encodeURIComponent(message);
+            let whatsappUrl = "https://wa.me/" + phoneNumber + "?text=" + encodedMessage;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        function filterProducts() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                let name = card.getAttribute('data-name');
+                let brand = card.getAttribute('data-brand');
+                if (name && (name.includes(input) || brand.includes(input))) {
+                    card.classList.remove('hidden');
+                } else if (name) {
+                    card.classList.add('hidden');
+                }
+            });
+        }
+
+        function filterGender(gender, button) {
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            const femmeSection = document.getElementById('femmeSection');
+            const hommeSection = document.getElementById('hommeSection');
+            if (gender === 'all') {
+                if(femmeSection) femmeSection.style.display = 'block';
+                if(hommeSection) hommeSection.style.display = 'block';
+            } else if (gender === 'femme') {
+                if(femmeSection) femmeSection.style.display = 'block';
+                if(hommeSection) hommeSection.style.display = 'none';
+            } else if (gender === 'homme') {
+                if(femmeSection) femmeSection.style.display = 'none';
+                if(hommeSection) hommeSection.style.display = 'block';
+            }
+        }
+       function checkoutWhatsApp() {
+    // إظهار نافذة البيانات
+    document.getElementById('orderModal').style.display = 'block';
+}
+
+function sendToWhatsApp(phoneNumber) {
+    let name = document.getElementById('customerName').value;
+    let address = document.getElementById('customerAddress').value;
+    let phone = document.getElementById('customerPhone').value;
+    
+    // تجميع محتويات الكارت
+    let items = cart.map(item => item.name).join(", "); 
+    let total = document.getElementById('cartTotal').innerText;
+    
+    if(!name || !address || !phone) {
+        alert("من فضلك أكمل البيانات");
+        return;
+    }
+
+    // 1. تجميع تفاصيل العطور (الاسم، الكود، والكمية)
+let itemsDetails = "";
+cart.forEach((item, index) => {
+    // كل عطر هيظهر في سطر لوحده بالتفصيل
+    itemsDetails += `\n${index + 1}- ${item.name} (كود: ${item.code}) - الكمية: ${item.quantity}`;
+});
+
+// 2. نص الرسالة الكامل
+let message = `مرحبا ORA-perfume اريد طلب العطور التاليه:\nالاسم: ${name}\nالعنوان: ${address}\nالتليفون: ${phone}\n\nالطلبات:${itemsDetails}\n\nالإجمالي: ${total}`;
+
+// 3. تحويل النص لترميز صحيح
+let encodedMessage = encodeURIComponent(message);
+
+// 4. فتح الرابط
+window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');}
+
+    </script>
+    <!-- نافذة عرض السلة -->
+<!-- نافذة عرض السلة -->
+<div id="cartModal" style="display:none; background:white; z-index:9999;">
+    <!-- استبدلنا النص، وأضفنا تنسيقاً للخط -->
+<h3 style="
+    text-align: center; 
+    margin: 20px 0; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    font-size: 1.8rem; 
+    font-weight: 900; 
+    color: #1a1a1a; 
+    border-bottom: 2px solid #b59410; 
+    padding-bottom: 10px; 
+    line-height: 1.4;">
+    سلة مشتريات <span style="color: #b59410; letter-spacing: 2px;">ORA-PERFUME</span>
+</h3>    
+    <div id="cartItemsList" style="margin-bottom: 20px;"></div>
+    
+    <button class="close-btn" onclick="document.getElementById('cartModal').style.display='none'">إغلاق السلة</button>
+</div>
+    <div id="orderModal" style="display:none; position:fixed; top:10%; left:10%; width:80%; background:white; padding:20px; border:2px solid #333; z-index:9999; border-radius:15px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+    <h3 style="text-align:center;">بيانات التوصيل</h3>
+    <input type="text" id="customerName" placeholder="الاسم" style="width:100%; margin-bottom:10px; padding:8px;">
+    <input type="text" id="customerAddress" placeholder="العنوان بالتفصيل" style="width:100%; margin-bottom:10px; padding:8px;">
+    <input type="text" id="customerPhone" placeholder="رقم الهاتف" style="width:100%; margin-bottom:10px; padding:8px;">
+    
+    <p style="text-align:center;">اختر رقم الواتساب لإرسال الطلب
+        للاوردرات المستعجله اختر 2:</p>
+    <button onclick="sendToWhatsApp('201030488495')" style="background:#25D366; color:white; padding:10px; border:none; width:100%; margin-bottom:5px; border-radius:5px;">إرسال للرقم الأول</button>
+    <button onclick="sendToWhatsApp('201123081733')" style="background:#128C7E; color:white; padding:10px; border:none; width:100%; border-radius:5px;">إرسال للرقم الثاني</button>
+    <br><br>
+    <button onclick="document.getElementById('orderModal').style.display='none'" style="width:100%; background:#ccc; border:none; padding:5px;">إغلاق</button>
+</div>
+</body>
+</html>
