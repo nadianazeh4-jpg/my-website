@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ORA Perfumes</title>
+    <meta name="description" content="ORA Perfumes — تشكيلة عطور رجالي وحريمي أصلية، سعر موحد 450 جنيه مع توصيل سريع لحد باب البيت.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="ORA Perfumes | كتالوج عطور فاخر">
+    <meta property="og:description" content="تشكيلة عطور رجالي وحريمي أصلية، سعر موحد 450 جنيه مع توصيل سريع لحد باب البيت.">
+    <meta property="og:image" content="images/ora3.jpeg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ORA Perfumes | كتالوج عطور فاخر">
+    <meta name="twitter:description" content="تشكيلة عطور رجالي وحريمي أصلية، سعر موحد 450 جنيه مع توصيل سريع لحد باب البيت.">
+    <meta name="twitter:image" content="images/ora3.jpeg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Cairo:wght@500;700;800;900&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
@@ -226,6 +235,59 @@
             background-color: var(--gold);
             border-color: var(--gold);
             color: #16140f;
+        }
+
+        /* ================= SCENT FILTER CHIPS ================= */
+        .scent-filters {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            width: 100%;
+            max-width: 700px;
+            padding: 2px 4px 6px;
+            scrollbar-width: none;
+        }
+
+        .scent-filters::-webkit-scrollbar { display: none; }
+
+        .scent-chip {
+            flex-shrink: 0;
+            background: transparent;
+            color: var(--ink-muted);
+            border: 1px solid var(--hairline);
+            padding: 6px 16px;
+            font-size: 0.76rem;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+
+        .scent-chip.active, .scent-chip:hover {
+            background: rgba(201,168,106,0.15);
+            border-color: var(--gold);
+            color: var(--gold-bright);
+        }
+
+        .quiz-cta-btn {
+            background: linear-gradient(135deg, rgba(201,168,106,0.12), rgba(201,168,106,0.04));
+            border: 1px solid var(--hairline-strong);
+            color: var(--gold-bright);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 700;
+            font-size: 0.82rem;
+            cursor: pointer;
+            transition: 0.25s;
+            margin-top: 4px;
+        }
+
+        .quiz-cta-btn:hover {
+            border-color: var(--gold);
+            background: rgba(201,168,106,0.2);
         }
 
         /* ================= SECTIONS ================= */
@@ -933,6 +995,194 @@
             color: var(--gold-bright);
         }
 
+        .copy-order-btn {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: var(--surface);
+            border: 1px solid var(--hairline-strong);
+            color: var(--ink);
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 700;
+            font-size: 0.86rem;
+            transition: 0.25s;
+        }
+
+        .copy-order-btn svg { width: 16px; height: 16px; }
+
+        .copy-order-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold-bright);
+        }
+
+        /* ================= SCENT DISCOVERY QUIZ ================= */
+        #quizModal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.65);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        #quizModal.open { display: flex; }
+
+        .quiz-box {
+            width: 100%;
+            max-width: 440px;
+            max-height: 88vh;
+            overflow-y: auto;
+            background: linear-gradient(180deg, #17150f 0%, #0e0d0a 100%);
+            border: 1px solid var(--hairline-strong);
+            border-radius: 18px;
+            padding: 30px 24px;
+            position: relative;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+        }
+
+        .quiz-close {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 1px solid var(--hairline);
+            background: transparent;
+            color: var(--ink-muted);
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+        }
+
+        .quiz-close:hover {
+            border-color: var(--gold);
+            color: var(--gold-bright);
+        }
+
+        .quiz-progress {
+            text-align: center;
+            font-family: 'Cairo', sans-serif;
+            font-size: 0.72rem;
+            color: var(--gold);
+            letter-spacing: 1px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .quiz-question {
+            text-align: center;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--ink);
+            margin: 0 0 24px;
+            line-height: 1.5;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .quiz-option-btn {
+            background: var(--surface);
+            border: 1px solid var(--hairline);
+            color: var(--ink);
+            padding: 16px;
+            border-radius: 10px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: 0.25s;
+        }
+
+        .quiz-option-btn:hover {
+            border-color: var(--gold);
+            background: rgba(201,168,106,0.1);
+            color: var(--gold-bright);
+        }
+
+        .quiz-results-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .quiz-result-item {
+            cursor: pointer;
+            text-align: center;
+            background: var(--surface);
+            border: 1px solid var(--hairline);
+            border-radius: 10px;
+            padding: 10px;
+            transition: 0.2s;
+        }
+
+        .quiz-result-item:hover {
+            border-color: var(--gold);
+            transform: translateY(-3px);
+        }
+
+        .quiz-result-item img {
+            width: 100%;
+            height: 80px;
+            object-fit: contain;
+            background: #0f0e0b;
+            border-radius: 6px;
+            padding: 4px;
+            margin-bottom: 6px;
+        }
+
+        .quiz-result-item span {
+            display: block;
+            font-size: 0.7rem;
+            color: var(--ink);
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .quiz-result-price {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--gold-bright) !important;
+            font-size: 0.78rem !important;
+            margin-top: 2px;
+        }
+
+        .quiz-retry-btn {
+            width: 100%;
+            background: transparent;
+            border: 1px solid var(--hairline);
+            color: var(--ink-muted);
+            padding: 11px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 700;
+            transition: 0.2s;
+        }
+
+        .quiz-retry-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold-bright);
+        }
+
         /* ================= SPLASH SCREEN ================= */
         #splashScreen {
             position: fixed;
@@ -1117,10 +1367,13 @@
         /* ================= CUSTOMER REVIEWS (dedicated full page) ================= */
         #reviewsPageModal {
             position: fixed;
-            inset: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 68px;
             display: none;
             background: var(--bg);
-            z-index: 9997;
+            z-index: 940;
             overflow-y: auto;
         }
 
@@ -1129,7 +1382,7 @@
         .reviews-page-content {
             max-width: 900px;
             margin: 0 auto;
-            padding: 30px 20px 70px;
+            padding: 30px 20px 40px;
         }
 
         .reviews-page-header {
@@ -1767,6 +2020,20 @@
             <button class="filter-btn" onclick="filterGender('homme', this)">تشكيلة الرجال</button>
             <button class="filter-btn wishlist-filter" id="wishlistFilterBtn" onclick="toggleWishlistFilter()">♥ المفضلة</button>
         </div>
+
+        <div class="scent-filters" id="scentFilters">
+            <button class="scent-chip active" data-scent="all" onclick="filterByScent('all', this)">كل الروائح</button>
+            <button class="scent-chip" data-scent="woody" onclick="filterByScent('woody', this)">خشبي</button>
+            <button class="scent-chip" data-scent="sweet" onclick="filterByScent('sweet', this)">حلو</button>
+            <button class="scent-chip" data-scent="floral" onclick="filterByScent('floral', this)">زهري</button>
+            <button class="scent-chip" data-scent="citrus" onclick="filterByScent('citrus', this)">حمضي</button>
+            <button class="scent-chip" data-scent="spicy" onclick="filterByScent('spicy', this)">توابل</button>
+            <button class="scent-chip" data-scent="fruity" onclick="filterByScent('fruity', this)">فواكه</button>
+            <button class="scent-chip" data-scent="amber" onclick="filterByScent('amber', this)">عنبر</button>
+            <button class="scent-chip" data-scent="vanilla" onclick="filterByScent('vanilla', this)">فانيليا</button>
+        </div>
+
+        <button class="quiz-cta-btn" onclick="openQuiz()">✨ مش عارفة تختاري؟ اكتشفي عطرك المثالي</button>
     </div>
 
     <section class="collection-section" id="femmeSection">
@@ -2470,46 +2737,68 @@ function updateCartUI() {
     openOrderModal();
 }
 
-function sendToWhatsApp(phoneNumber) {
+function buildOrderMessage() {
     let name = document.getElementById('customerName').value;
     let address = document.getElementById('customerAddress').value;
     let phone = document.getElementById('customerPhone').value;
-    
-    // تجميع محتويات الكارت
-    let items = cart.map(item => item.name).join(", "); 
+
     let totalQty = cart.reduce((sum, item) => sum + item.quantity, 0);
     let total = (totalQty * pricePerItem) + " EGP";
-    
-    if(!name || !address || !phone) {
+
+    if (!name || !address || !phone) {
         alert("من فضلك أكمل/ي البيانات");
-        return;
+        return null;
     }
 
-    // 1. تجميع تفاصيل العطور (الاسم، الكود، والكمية)
-let itemsDetails = "";
-cart.forEach((item, index) => {
-    // كل عطر هيظهر في سطر لوحده بالتفصيل
-    itemsDetails += `\n${index + 1}- ${item.name} (كود: ${item.code}) - الكمية: ${item.quantity}`;
-});
+    let itemsDetails = "";
+    cart.forEach((item, index) => {
+        itemsDetails += `\n${index + 1}- ${item.name} (كود: ${item.code}) - الكمية: ${item.quantity}`;
+    });
 
-// 2. نص الرسالة الكامل
-let message = `مرحبا ORA-perfume اريد طلب العطور التاليه:\nالاسم: ${name}\nالعنوان: ${address}\nالتليفون: ${phone}\n\nالطلبات:${itemsDetails}\n\nالإجمالي: ${total}`;
+    return `مرحبا ORA-perfume اريد طلب العطور التاليه:\nالاسم: ${name}\nالعنوان: ${address}\nالتليفون: ${phone}\n\nالطلبات:${itemsDetails}\n\nالإجمالي: ${total}`;
+}
 
-// 3. تحويل النص لترميز صحيح
-let encodedMessage = encodeURIComponent(message);
+function sendToWhatsApp(phoneNumber) {
+    const message = buildOrderMessage();
+    if (!message) return;
 
-// 4. فتح الرابط
-window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
+    let encodedMessage = encodeURIComponent(message);
+    window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
 
-// 5. تفريغ السلة وتصفير النموذج بعد إرسال الطلب
-cart = [];
-updateCartUI();
-document.getElementById('customerName').value = '';
-document.getElementById('customerAddress').value = '';
-document.getElementById('customerPhone').value = '';
-closeOrderModal();
-closeCartModal();
-showOrderSuccess();
+    // تفريغ السلة وتصفير النموذج بعد إرسال الطلب
+    cart = [];
+    updateCartUI();
+    document.getElementById('customerName').value = '';
+    document.getElementById('customerAddress').value = '';
+    document.getElementById('customerPhone').value = '';
+    closeOrderModal();
+    closeCartModal();
+    showOrderSuccess();
+}
+
+function copyOrderText() {
+    const message = buildOrderMessage();
+    if (!message) return;
+
+    const finish = () => showToast('تم نسخ تفاصيل الطلب، الصقيه لأي حد تحبي تبعتيله', true);
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(message).then(finish).catch(() => fallbackCopy(message, finish));
+    } else {
+        fallbackCopy(message, finish);
+    }
+}
+
+function fallbackCopy(text, onDone) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+    if (onDone) onDone();
 }
 
     </script>
@@ -2582,6 +2871,13 @@ showOrderSuccess();
             </span>
         </button>
 
+        <div class="order-divider"><span>مش فاتحة واتساب على الجهاز ده؟</span></div>
+
+        <button onclick="copyOrderText()" class="copy-order-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            انسخي تفاصيل الطلب
+        </button>
+
         <button onclick="closeOrderModal()" class="order-close">إغلاق</button>
     </div>
 </div>
@@ -2594,6 +2890,13 @@ showOrderSuccess();
         <h3>تم إرسال طلبك بنجاح</h3>
         <p>هنتواصل معاك في أقرب وقت لتأكيد الطلب والتوصيل. شكراً لثقتك في ORA</p>
         <button onclick="closeSuccessModal()" class="success-close">تمام</button>
+    </div>
+</div>
+
+<div id="quizModal" onclick="if(event.target===this) closeQuiz()">
+    <div class="quiz-box">
+        <button class="quiz-close" onclick="closeQuiz()">&times;</button>
+        <div id="quizStepContainer"></div>
     </div>
 </div>
 
@@ -2628,7 +2931,7 @@ showOrderSuccess();
     <div class="qv-page-content">
         <div class="qv-box">
             <div class="qv-content">
-                <img id="qvImg" class="qv-img" src="" alt="" onload="this.classList.remove('img-skel')" onerror="this.classList.remove('img-skel')">
+                <img id="qvImg" class="qv-img" src="" alt="" style="cursor:zoom-in;" onclick="openLightbox(this.src)" onload="this.classList.remove('img-skel')" onerror="this.classList.remove('img-skel')">
                 <div>
                     <p class="qv-brand" id="qvBrand"></p>
                     <h3 class="qv-name" id="qvName"></h3>
@@ -2780,6 +3083,9 @@ showOrderSuccess();
         if (!code) return;
         card.dataset.code = code;
 
+        const tagsEl = card.querySelector('.tags');
+        card.dataset.scentTags = tagsEl ? tagsEl.textContent.toLowerCase() : '';
+
         const heart = document.createElement('button');
         heart.type = 'button';
         heart.className = 'wishlist-btn' + (wishlist.includes(code) ? ' active' : '');
@@ -2835,6 +3141,11 @@ showOrderSuccess();
         document.querySelectorAll('.filter-buttons .filter-btn').forEach(b => b.classList.remove('active'));
         if (allBtn) { allBtn.classList.add('active'); filterGender('all', allBtn); }
 
+        activeScent = 'all';
+        document.querySelectorAll('.scent-chip').forEach(c => c.classList.remove('active'));
+        const allScentBtn = document.querySelector('.scent-chip[data-scent="all"]');
+        if (allScentBtn) allScentBtn.classList.add('active');
+
         applyFilters();
         closeQuickView();
         closeCartModal();
@@ -2857,6 +3168,15 @@ showOrderSuccess();
         el.innerHTML = original.replace(regex, '<span class="search-highlight">$1</span>');
     }
 
+    let activeScent = 'all';
+
+    window.filterByScent = function(scent, btn) {
+        activeScent = scent;
+        document.querySelectorAll('.scent-chip').forEach(c => c.classList.remove('active'));
+        btn.classList.add('active');
+        applyFilters();
+    };
+
     window.applyFilters = function() {
         let input = document.getElementById('searchInput').value.toLowerCase();
         document.getElementById('searchWrap').classList.toggle('has-text', input.length > 0);
@@ -2867,7 +3187,8 @@ showOrderSuccess();
             const code = card.dataset.code;
             const matchesSearch = name && (name.includes(input) || brand.includes(input));
             const matchesWishlist = !wishlistFilterActive || wishlist.includes(code);
-            card.classList.toggle('hidden', !(matchesSearch && matchesWishlist));
+            const matchesScent = activeScent === 'all' || (card.dataset.scentTags || '').includes(activeScent);
+            card.classList.toggle('hidden', !(matchesSearch && matchesWishlist && matchesScent));
 
             const nameTerm = matchesSearch && input ? input : '';
             highlightMatch(card.querySelector('h3'), nameTerm);
@@ -2891,6 +3212,118 @@ showOrderSuccess();
             }
         });
     };
+
+    // ================= اختبار اكتشفي عطرك =================
+    const quizQuestions = [
+        {
+            q: "تحبي روائح حلوة ولا منعشة؟",
+            options: [
+                { label: "حلوة 🍯", tags: ['sweet', 'vanilla', 'gourmand', 'amber'] },
+                { label: "منعشة 🍋", tags: ['citrus', 'fresh', 'aromatic', 'marine'] }
+            ]
+        },
+        {
+            q: "تفضلي العطر يكون نهاري ولا ليلي؟",
+            options: [
+                { label: "نهاري ☀️", tags: ['citrus', 'fresh', 'green', 'fruity'] },
+                { label: "ليلي 🌙", tags: ['woody', 'warm spicy', 'amber', 'leather'] }
+            ]
+        },
+        {
+            q: "بتميلي لطابع زهري ولا خشبي؟",
+            options: [
+                { label: "زهري 🌸", tags: ['floral', 'rose', 'jasmine', 'powdery'] },
+                { label: "خشبي 🌲", tags: ['woody', 'musk', 'patchouli'] }
+            ]
+        }
+    ];
+
+    let quizStep = 0;
+    let quizKeywords = [];
+
+    window.openQuiz = function() {
+        quizStep = 0;
+        quizKeywords = [];
+        renderQuizStep();
+        document.getElementById('quizModal').classList.add('open');
+    };
+
+    window.closeQuiz = function() {
+        document.getElementById('quizModal').classList.remove('open');
+    };
+
+    function renderQuizStep() {
+        const container = document.getElementById('quizStepContainer');
+        if (quizStep >= quizQuestions.length) {
+            renderQuizResults();
+            return;
+        }
+        const q = quizQuestions[quizStep];
+        container.innerHTML = `
+            <div class="quiz-progress">${quizStep + 1} / ${quizQuestions.length}</div>
+            <h3 class="quiz-question">${q.q}</h3>
+            <div class="quiz-options"></div>
+        `;
+        const optWrap = container.querySelector('.quiz-options');
+        q.options.forEach(opt => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'quiz-option-btn';
+            btn.textContent = opt.label;
+            btn.onclick = function() {
+                quizKeywords.push.apply(quizKeywords, opt.tags);
+                quizStep++;
+                renderQuizStep();
+            };
+            optWrap.appendChild(btn);
+        });
+    }
+
+    function computeQuizResults(keywords) {
+        const cards = Array.from(document.querySelectorAll('.card'));
+        const scored = cards.map(card => {
+            const tags = card.dataset.scentTags || '';
+            let score = 0;
+            keywords.forEach(k => { if (tags.includes(k)) score++; });
+            return { card: card, score: score };
+        });
+        scored.sort((a, b) => b.score - a.score);
+
+        let top = scored.filter(s => s.score > 0).slice(0, 3);
+        if (top.length < 3) {
+            const remaining = scored.filter(s => s.score === 0);
+            for (let i = remaining.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [remaining[i], remaining[j]] = [remaining[j], remaining[i]];
+            }
+            while (top.length < 3 && remaining.length) top.push(remaining.shift());
+        }
+        return top.map(t => t.card);
+    }
+
+    function renderQuizResults() {
+        const container = document.getElementById('quizStepContainer');
+        const results = computeQuizResults(quizKeywords);
+        container.innerHTML = `
+            <h3 class="quiz-question">عطورك المقترحة ✨</h3>
+            <div class="quiz-results-grid" id="quizResultsGrid"></div>
+            <button type="button" class="quiz-retry-btn" onclick="openQuiz()">جربي تاني</button>
+        `;
+        const grid = container.querySelector('#quizResultsGrid');
+        results.forEach(card => {
+            const img = card.querySelector('.product-img').src;
+            const name = card.querySelector('h4').textContent;
+            const priceHtml = card.querySelector('.price').innerHTML;
+            const item = document.createElement('div');
+            item.className = 'quiz-result-item';
+            item.innerHTML = `<img src="${img}" alt="${name}" loading="lazy"><span>${name}</span><span class="quiz-result-price">${priceHtml}</span>`;
+            item.onclick = function() {
+                closeQuiz();
+                openQuickView(card);
+            };
+            grid.appendChild(item);
+        });
+    }
 
     // ================= صفحة عرض المنتج =================
     let qvStack = [];
