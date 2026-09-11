@@ -290,6 +290,59 @@
             background: rgba(201,168,106,0.2);
         }
 
+        /* ================= RECENTLY VIEWED ================= */
+        .recently-viewed-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 20px 0;
+        }
+
+        .recently-viewed-section h3 {
+            font-family: 'Cairo', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--ink-muted);
+            letter-spacing: 0.3px;
+            margin: 0 0 12px;
+        }
+
+        .recently-viewed-scroll {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding-bottom: 6px;
+        }
+
+        .recently-viewed-item {
+            flex: 0 0 88px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .recently-viewed-item img {
+            width: 88px;
+            height: 88px;
+            object-fit: contain;
+            background: #0f0e0b;
+            border-radius: 8px;
+            padding: 6px;
+            transition: 0.2s;
+        }
+
+        .recently-viewed-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .recently-viewed-item span {
+            display: block;
+            font-size: 0.68rem;
+            color: var(--ink-muted);
+            margin-top: 6px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
         /* ================= SECTIONS ================= */
         .collection-section {
             padding: 34px 20px 10px;
@@ -330,6 +383,92 @@
             height: 7px;
             background: var(--gold-bright);
             box-shadow: 0 0 8px rgba(231, 205, 148, 0.6);
+        }
+
+        /* ================= FAQ ================= */
+        .faq-list {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--hairline);
+        }
+
+        .faq-question {
+            width: 100%;
+            text-align: right;
+            background: none;
+            border: none;
+            color: var(--ink);
+            font-family: 'Cairo', sans-serif;
+            font-weight: 700;
+            font-size: 0.94rem;
+            padding: 18px 4px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .faq-icon {
+            flex-shrink: 0;
+            color: var(--gold);
+            font-size: 1.3rem;
+            font-weight: 400;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.open .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease;
+        }
+
+        .faq-item.open .faq-answer {
+            max-height: 220px;
+        }
+
+        .faq-answer p {
+            color: var(--ink-muted);
+            font-size: 0.88rem;
+            line-height: 1.75;
+            padding: 0 4px 18px;
+            margin: 0;
+        }
+
+        /* ================= FOOTER ================= */
+        .site-footer {
+            text-align: center;
+            padding: 40px 20px 30px;
+            border-top: 1px solid var(--hairline);
+            margin-top: 10px;
+        }
+
+        .footer-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            letter-spacing: 6px;
+            color: var(--gold-bright);
+        }
+
+        .footer-tagline {
+            font-family: 'Cairo', sans-serif;
+            font-size: 0.8rem;
+            color: var(--ink-muted);
+            margin: 8px 0 18px;
+        }
+
+        .footer-copy {
+            font-family: 'Tajawal', sans-serif;
+            font-size: 0.72rem;
+            color: var(--ink-faint);
         }
 
         .products-grid {
@@ -1963,6 +2102,50 @@
             .bottom-nav-item { padding: 6px 16px; font-size: 0.62rem; }
             .bottom-nav-item svg { width: 20px; height: 20px; }
             .checkout-btn { padding: 10px 18px; font-size: 0.85rem; }
+
+            .quiz-box {
+                padding: 24px 16px;
+                max-width: 100%;
+            }
+
+            .quiz-question {
+                font-size: 1.25rem;
+            }
+
+            .quiz-results-grid {
+                gap: 8px;
+            }
+
+            .quiz-result-item img {
+                height: 64px;
+            }
+
+            .order-box {
+                padding: 24px 16px;
+                max-width: 100%;
+            }
+
+            .faq-question {
+                font-size: 0.86rem;
+                padding: 15px 2px;
+            }
+
+            .site-footer {
+                padding: 32px 16px 24px;
+            }
+
+            .scent-filters {
+                max-width: 100%;
+            }
+
+            .recently-viewed-item {
+                flex: 0 0 76px;
+            }
+
+            .recently-viewed-item img {
+                width: 76px;
+                height: 76px;
+            }
         }
     </style>
 </head>
@@ -2033,7 +2216,12 @@
             <button class="scent-chip" data-scent="vanilla" onclick="filterByScent('vanilla', this)">فانيليا</button>
         </div>
 
-        <button class="quiz-cta-btn" onclick="openQuiz()">✨ مش عارفة تختاري؟ اكتشفي عطرك المثالي</button>
+        <button class="quiz-cta-btn" onclick="openQuiz()">✨ مش عارف/ة تختار/ي؟ اكتشف/ي عطرك المثالي</button>
+    </div>
+
+    <div class="recently-viewed-section" id="recentlyViewedSection" style="display:none;">
+        <h3>شفت/يها قبل كده</h3>
+        <div class="recently-viewed-scroll" id="recentlyViewedScroll"></div>
     </div>
 
     <section class="collection-section" id="femmeSection">
@@ -2485,10 +2673,54 @@
     <p class="tags">Sweet, Amber, Vanilla, Woody, Boozy, Warm Spicy</p>
     <p class="desc">تركيبة دافئة ومكثفة تتميز باتفاق الروم المسكر الممزوج بسلاسة مع الكستناء الحلو وفانيليا مدغشقر الداكنة.</p>
     <div class="price">450 <span class="price-currency">EGP</span></div>
-    <button class="add-to-cart-btn" onclick="addToCart('Stronger With You Absolutely', 'SWY-ABS')">إضافة إلى الطلب</button>
+    <button class="add-to-cart-btn" onclick="addToCart('Stronger With You Absolutely', 'SWY-ABS','swy.jpeg')">إضافة إلى الطلب</button>
+</div>
+
+<!-- 20. Creed - Aventus -->
+<div class="card" data-name="creed fragrances aventus" data-brand="creed fragrances">
+    <span class="status-badge">متوفر الآن</span>
+    <img class="product-img img-skel" src="images/ave.jpeg" alt="Aventus" loading="lazy" decoding="async" onload="this.classList.remove('img-skel')" onerror="this.classList.remove('img-skel')">
+    <h3>CREED FRAGRANCES</h3>
+    <h4>Aventus</h4>
+    <p class="tags">Fruity, Citrus, Floral, Woody, Amber</p>
+    <p class="desc">عطر جريء وواثق وخالد يجسد القوة والنجاح، بمزيج من الأناناس والبرغموت والكشمش الأسود، على قلب من الياسمين والورد، وقاعدة من الباتشولي والبتولا والمسك وعنبر الحوت.</p>
+    <div class="price">450 <span class="price-currency">EGP</span></div>
+    <button class="add-to-cart-btn" onclick="addToCart('Aventus', 'CRD-AVT','ave.jpeg')">إضافة إلى الطلب</button>
 </div>
 </div>
     </section>
+
+    <section class="collection-section faq-section" id="faqSection">
+        <h2>أسئلة شائعة</h2>
+        <div class="faq-list">
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaq(this)">التوصيل بيوصل لكل المحافظات؟<span class="faq-icon">+</span></button>
+                <div class="faq-answer"><p>أيوه، التوصيل متاح لمعظم المحافظات. وبنأكد معاك مدة التوصيل بالظبط لمنطقتك عند تأكيد الطلب.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaq(this)">مدة التوصيل قد إيه؟<span class="faq-icon">+</span></button>
+                <div class="faq-answer"><p>من يومين لحد 5 أيام عمل حسب المنطقة، وهنبقى على تواصل معاك لحد ما يوصلك الطلب.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaq(this)">فيه إمكانية استبدال أو استرجاع؟<span class="faq-icon">+</span></button>
+                <div class="faq-answer"><p>تقدري تتواصلي معانا خلال 24 ساعة من استلام الطلب لو فيه أي مشكلة، وهنساعدك فوراً.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaq(this)">العطور أصلية؟<span class="faq-icon">+</span></button>
+                <div class="faq-answer"><p>أيوه، كل العطور المعروضة أصلية 100% ومضمونة الجودة.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaq(this)">طرق الدفع المتاحة إيه؟<span class="faq-icon">+</span></button>
+                <div class="faq-answer"><p>الدفع عند الاستلام حالياً، وبتدفع/ي وانت مطمّن/ة لحد ما تستلم/ي طلبك.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="footer-logo">ORA</div>
+        <p class="footer-tagline">عطور فاخرة بسعر يناسب الجميع</p>
+        <p class="footer-copy">© 2026 ORA Perfumes — جميع الحقوق محفوظة</p>
+    </footer>
 
    <nav class="bottom-nav">
         <button class="bottom-nav-item active" id="navHome" onclick="goHome()" aria-label="الرئيسية">
@@ -2593,6 +2825,12 @@ function closeCartModal() {
 
 function openOrderModal() {
     if (cart.length === 0) return;
+    const saved = JSON.parse(localStorage.getItem('ora_customer_info') || 'null');
+    if (saved) {
+        document.getElementById('customerName').value = saved.name || '';
+        document.getElementById('customerAddress').value = saved.address || '';
+        document.getElementById('customerPhone').value = saved.phone || '';
+    }
     document.getElementById('orderModal').classList.add('open');
 }
 
@@ -2765,12 +3003,16 @@ function sendToWhatsApp(phoneNumber) {
     let encodedMessage = encodeURIComponent(message);
     window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
 
-    // تفريغ السلة وتصفير النموذج بعد إرسال الطلب
+    // حفظ بيانات التوصيل عشان تتملي تلقائي المرة الجاية
+    localStorage.setItem('ora_customer_info', JSON.stringify({
+        name: document.getElementById('customerName').value,
+        address: document.getElementById('customerAddress').value,
+        phone: document.getElementById('customerPhone').value
+    }));
+
+    // تفريغ السلة بعد إرسال الطلب (البيانات بتفضل محفوظة للمرة الجاية)
     cart = [];
     updateCartUI();
-    document.getElementById('customerName').value = '';
-    document.getElementById('customerAddress').value = '';
-    document.getElementById('customerPhone').value = '';
     closeOrderModal();
     closeCartModal();
     showOrderSuccess();
@@ -2780,7 +3022,7 @@ function copyOrderText() {
     const message = buildOrderMessage();
     if (!message) return;
 
-    const finish = () => showToast('تم نسخ تفاصيل الطلب، الصقيه لأي حد تحبي تبعتيله', true);
+    const finish = () => showToast('تم نسخ تفاصيل الطلب، الصقيه لأي حد تحب/ي تبعت/يله', true);
 
     if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(message).then(finish).catch(() => fallbackCopy(message, finish));
@@ -2849,7 +3091,7 @@ function fallbackCopy(text, onDone) {
             </div>
         </div>
 
-        <div class="order-divider"><span>اختاري وسيلة الإرسال</span></div>
+        <div class="order-divider"><span>اختر/ي وسيلة الإرسال</span></div>
 
         <button onclick="sendToWhatsApp('201030488495')" class="whatsapp-btn">
             <span class="whatsapp-icon">
@@ -3127,6 +3369,13 @@ function fallbackCopy(text, onDone) {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
+    window.toggleFaq = function(btn) {
+        const item = btn.closest('.faq-item');
+        const wasOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+        if (!wasOpen) item.classList.add('open');
+    };
+
     window.goHome = function() {
         wishlistFilterActive = false;
         document.getElementById('wishlistFilterBtn').classList.remove('active');
@@ -3216,21 +3465,21 @@ function fallbackCopy(text, onDone) {
     // ================= اختبار اكتشفي عطرك =================
     const quizQuestions = [
         {
-            q: "تحبي روائح حلوة ولا منعشة؟",
+            q: "تحب/ي روائح حلوة ولا منعشة؟",
             options: [
                 { label: "حلوة 🍯", tags: ['sweet', 'vanilla', 'gourmand', 'amber'] },
                 { label: "منعشة 🍋", tags: ['citrus', 'fresh', 'aromatic', 'marine'] }
             ]
         },
         {
-            q: "تفضلي العطر يكون نهاري ولا ليلي؟",
+            q: "تفضل/ي العطر يكون نهاري ولا ليلي؟",
             options: [
                 { label: "نهاري ☀️", tags: ['citrus', 'fresh', 'green', 'fruity'] },
                 { label: "ليلي 🌙", tags: ['woody', 'warm spicy', 'amber', 'leather'] }
             ]
         },
         {
-            q: "بتميلي لطابع زهري ولا خشبي؟",
+            q: "بتميل/ي لطابع زهري ولا خشبي؟",
             options: [
                 { label: "زهري 🌸", tags: ['floral', 'rose', 'jasmine', 'powdery'] },
                 { label: "خشبي 🌲", tags: ['woody', 'musk', 'patchouli'] }
@@ -3307,7 +3556,7 @@ function fallbackCopy(text, onDone) {
         container.innerHTML = `
             <h3 class="quiz-question">عطورك المقترحة ✨</h3>
             <div class="quiz-results-grid" id="quizResultsGrid"></div>
-            <button type="button" class="quiz-retry-btn" onclick="openQuiz()">جربي تاني</button>
+            <button type="button" class="quiz-retry-btn" onclick="openQuiz()">جرب/ي تاني</button>
         `;
         const grid = container.querySelector('#quizResultsGrid');
         results.forEach(card => {
@@ -3353,12 +3602,51 @@ function fallbackCopy(text, onDone) {
         // تحديث رابط الصفحة عشان يبقى قابل للمشاركة
         if (card.dataset.code) {
             history.replaceState(null, '', '#product=' + encodeURIComponent(card.dataset.code));
+            trackRecentlyViewed(card.dataset.code);
         }
 
         renderSuggestions(card);
 
         const modal = document.getElementById('quickViewModal');
         modal.scrollTop = 0;
+    }
+
+    // ================= شفتيها قبل كده =================
+    let recentlyViewed = JSON.parse(localStorage.getItem('ora_recently_viewed') || '[]');
+
+    function trackRecentlyViewed(code) {
+        recentlyViewed = recentlyViewed.filter(c => c !== code);
+        recentlyViewed.unshift(code);
+        recentlyViewed = recentlyViewed.slice(0, 6);
+        localStorage.setItem('ora_recently_viewed', JSON.stringify(recentlyViewed));
+        renderRecentlyViewed();
+    }
+
+    function renderRecentlyViewed() {
+        const section = document.getElementById('recentlyViewedSection');
+        const scroll = document.getElementById('recentlyViewedScroll');
+        if (!section || !scroll) return;
+
+        const cards = recentlyViewed
+            .map(code => document.querySelector('.card[data-code="' + code + '"]'))
+            .filter(Boolean);
+
+        if (!cards.length) {
+            section.style.display = 'none';
+            return;
+        }
+
+        section.style.display = 'block';
+        scroll.innerHTML = '';
+        cards.forEach(card => {
+            const img = card.querySelector('.product-img').src;
+            const name = card.querySelector('h4').textContent;
+            const item = document.createElement('div');
+            item.className = 'recently-viewed-item';
+            item.innerHTML = `<img src="${img}" alt="${name}" loading="lazy"><span>${name}</span>`;
+            item.onclick = () => openQuickView(card);
+            scroll.appendChild(item);
+        });
     }
 
     // فتح صفحة منتج جديدة من الكاتالوج (بداية تصفح جديدة)
@@ -3456,6 +3744,8 @@ function fallbackCopy(text, onDone) {
         const sharedCard = document.querySelector('.card[data-code="' + CSS.escape(sharedCode) + '"]');
         if (sharedCard) openQuickView(sharedCard);
     }
+
+    renderRecentlyViewed();
 </script>
 </body>
 </html>
